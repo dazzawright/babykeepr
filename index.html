@@ -1,0 +1,335 @@
+<?php
+    if ($_POST["submit"]) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+        $human = intval($_POST['human']);
+        $from = 'Demo Contact Form'; 
+        $to = 'example@bootstrapbay.com'; 
+        $subject = 'Message from Contact Demo ';
+        
+        $body = "From: $name\n E-Mail: $email\n Message:\n $message";
+ 
+        // Check if name has been entered
+        if (!$_POST['name']) {
+            $errName = 'Please enter your name';
+        }
+        
+        // Check if email has been entered and is valid
+        if (!$_POST['email'] || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $errEmail = 'Please enter a valid email address';
+        }
+        
+        //Check if message has been entered
+        if (!$_POST['message']) {
+            $errMessage = 'Please enter your message';
+        }
+        //Check if simple anti-bot test is correct
+        if ($human !== 5) {
+            $errHuman = 'Your anti-spam is incorrect';
+        }
+ 
+// If there are no errors, send the email
+if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
+    if (mail ($to, $subject, $body, $from)) {
+        $result='<div class="alert alert-success">Thank You! I will be in touch</div>';
+    } else {
+        $result='<div class="alert alert-danger">Sorry there was an error sending your message. Please try again later</div>';
+    }
+}
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>babykeepr</title>
+ <!-- Bootstrap -->
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+ <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media
+queries -->
+ <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+ <!--[if lt IE 9]>
+ <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></
+script>
+ <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/
+respond.min.js"></script>
+ <![endif]-->
+
+ 
+ </head>
+ <body data-spy="scroll" data-target=".navbar-collapse">
+ 
+ <nav id="mainmenu" class="navbar navbar-fixed-top main-menu head-menu auto-height swingInX headroom--top" role="navigation">
+        <div class="container">
+            
+            <div class="logo-cont">
+                    <a class="navbar-brand" id="brand" href="#hero">
+                        babykeepr
+                    </a>
+            </div>
+            <!--<div class="buttons-cont">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#logIn">Log In</button>
+            </div>-->
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                      
+                        <li><a href="#features">features</a></li>
+                        <li><a href="#about">about</a></li>
+                        <li><a href="#contact">contacts</a></li>
+                        <li><a class="btn btn-default" href="#" role="button" data-toggle="modal" data-target="#loginModal">sign up</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#loginModal">log in</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--end of nav bar-->
+    
+
+ <div id="hero" class="content-box noSelect">
+        <div class=" container-fluid">
+            <div class="row">
+                <div class="animated slideInLeft col-md-8 left-align hero-text grey-text"><h1 id="mainHeading">babykeep<span class="color">r</span></h1>
+                <!--<h2>Download Now For</h2>-->
+            
+            <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"><a class="download-link android" href="#"><h2>Android <i class="fa fa-android"></i></h2></a></div>
+                <div class="col-md-4"><h2>Coming Soon </h2></div>
+                <!--<div class="col-md-4"><a class="download-link ios" href="#"><h2>iOS <i class="fa fa-apple"></i></h2></a></div>-->
+            </div>
+            </div>
+            </div>
+                <div class="animated slideInRight col-md-4 hero-img">
+                    <img id="mainPhone" class="noSelect" draggable="false" src="images/phone.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ <div class="white">
+    <div id="features" class="content-box">
+
+    <div id="visible-features">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 feature-box"><i class="anim-bounce-left main-ico fa fa-cogs"></i><br>
+                <h5>Lorem Ipsum</h5><br>
+                <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                </div>
+                <div class="col-md-4 feature-box"><i class="anim-bounce main-ico fa fa-camera-retro"></i><br>
+                <h5>Lorem Ipsum</h5><br>
+                <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                </div>
+                <div class="col-md-4 feature-box"><i class="anim-bounce-right main-ico fa fa-headphones"></i><br>
+                <h5>Lorem Ipsum</h5><br>
+                <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        
+        
+        
+    </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="anim-zoom-down col-md-6 col-md-offset-3">
+                    <h2 class="nice-htwo">Learn Some More</h2><br>
+                    <h3 class="nice-hthree">About Our App</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grey">
+    <div id="about" class="content-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 right-align">
+                    <h2 class="theme-color animated slideInLeft">Lorem ipsum dolor sit amet <br>Consectetur adipiscing elit </h2>
+                    <p class="dummy-text animated slideInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                </div>
+                <div class="col-md-6 screen-container">
+                    <img src="images/screens1.png" draggable="false" class="anim-from-right noSelect screens">
+                </div>
+            </div>
+        </div>
+    </div>    
+    </div>
+    <div class="white">
+    <div id="about1" class="content-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 screen-container">
+                    <img src="images/screens1.png" draggable="false" class="anim-from-left noSelect screens">
+                </div>
+                <div class="col-md-6 left-align">
+                    <h2 class="theme-color animated slideInRight">Lorem ipsum dolor sit amet <br>Consectetur adipiscing elit </h2>
+                    <p class="dummy-text animated slideInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                    <p class="dummy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia tempor mollis. Morbi aliquet orci at ullamcorper viverra. Cras venenatis, nisl et interdum porttitor, justo magna lobortis sem, in malesuada neque leo quis felis.</p>
+                </div>
+            </div>
+        </div>
+    </div>    
+    </div>
+    <div class="container-fluid no-bg" id="contact">
+        <div class="row">
+            <div id="contact-form" class="col-md-8 col-md-offset-2">
+                
+                <p class="lead">Please get in touch - I'll get back to you as soon as I can.</p>
+                <form class="form-horizontal" role="form" method="post" >
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="First & Last Name" value="<?php echo htmlspecialchars($_POST['name']); ?>">
+                            <?php echo "<p class='text-danger'>$errName</p>";?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value="<?php echo htmlspecialchars($_POST['email']); ?>">
+                            <?php echo "<p class='text-danger'>$errEmail</p>";?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="col-sm-2 control-label">Message</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="4" name="message"><?php echo htmlspecialchars($_POST['message']);?></textarea>
+                            <?php echo "<p class='text-danger'>$errMessage</p>";?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="human" class="col-sm-2 control-label">2 + 3 = ?</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="human" name="human" placeholder="Your Answer">
+                            <?php echo "<p class='text-danger'>$errHuman</p>";?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <input id="submit" name="submit" type="submit" value="Send" class="btn btn-primary">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <?php echo $result; ?>    
+                        </div>
+                    </div>
+                </form> 
+
+            </div> <!-- end contact form div -->
+        </div> <!-- End row -->
+
+    </div><!-- end container-fluid -->
+
+    <!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center">Login</h1>
+      </div>
+      <div class="modal-body">
+          <form class="form col-md-12 center-block">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          </div>    
+      </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+ <div class="container contentContainer" id="footer">
+
+ <div class="row">
+        
+         <h1 class="center title">Download The App!</h1>
+        
+         <p class="lead center">Really, why should I download this app?</p>
+            
+         <p class="center"><img src="images/google_play_store.png" class="appstoreImage" />
+        
+ </div>
+
+
+
+
+ </div>
+
+ <footer id="footer">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <div id="back-to-top" class="centered"><a id="back-top" href="#hero"><i class="fa fa-angle-double-up"></i></a></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 footer-txt">Created by Darren Wright</div> <div id="social" class="col-md-4"><i id="twitter-btn" class="fa fa-twitter social-buttons"></i><i id="gplus-btn" class="fa fa-google-plus social-buttons"></i></div><div class="col-md-4 footer-txt"> &#169 2015 all rights reserved</div>
+    </div>
+</footer>
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+ <!--<script>
+
+ $(".contentContainer").css("min-height",$(window).height());
+ 
+</script>-->
+ </body>
+
+
+</html>
